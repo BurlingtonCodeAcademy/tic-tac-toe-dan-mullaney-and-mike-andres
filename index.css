@@ -1,0 +1,98 @@
+.board {
+    display: flex;
+    flex-direction: column;
+    width: 30vw;
+    height: 30vh;
+  
+}
+
+#row-1{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#row-2{
+    display: flex;
+    flex-direction: row;
+
+}
+
+#row-3{
+    display: flex;
+    flex-direction: row;
+   
+}
+
+/* .board {
+    display: grid;
+    width: 3vw;
+    height: 3vh;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-gap: 1rem;
+    grid-template-areas: 
+        "cell-0 cell-1 cell-2"
+        "cell-3 cell-4 cell-5"
+        "cell-6 cell-7 cell-8" 
+} */
+
+#cell-0 {
+    grid-area: cell-0;
+    border: 1px solid black;
+    
+    width: 5vw;
+    height: 5vh;
+
+}
+#cell-1 {
+    grid-area: cell-1;
+    width: 5vw;
+    height: 5vh;
+    border: 1px solid black;
+    
+}
+#cell-2 {
+    grid-area: cell-2;
+    width: 5vw;
+    height: 5vh;
+    border: 1px solid black;
+    
+}
+#cell-3 {
+    grid-area: cell-3;
+    border: 1px solid black;
+    
+    width: 5vw;
+    height: 5vh;
+}
+#cell-4 {
+    grid-area: cell-4;
+    border: 1px solid black;
+    width: 5vw;
+    height: 5vh;
+}
+#cell-5 {
+    grid-area: cell-5;
+    border: 1px solid black;
+    width: 5vw;
+    height: 5vh;
+}
+#cell-6 {
+    grid-area: cell-6;
+    border: 1px solid black;
+    width: 5vw;
+    height: 5vh;
+}
+#cell-7 {
+    grid-area: cell-7;
+    border: 1px solid black;
+    width: 5vw;
+    height: 5vh;
+}
+#cell-8 {
+    grid-area: cell-8;
+    border: 1px solid black;
+    width: 5vw;
+    height: 5vh;
+}
