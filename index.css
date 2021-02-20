@@ -1,3 +1,5 @@
+
+
 .board {
     display: flex;
     flex-direction: column;
@@ -40,7 +42,8 @@
 #cell-0 {
     grid-area: cell-0;
     border: 1px solid black;
-    
+    border-top: none;
+    border-left: none;
     width: 5vw;
     height: 5vh;
 
@@ -50,18 +53,23 @@
     width: 5vw;
     height: 5vh;
     border: 1px solid black;
+    border-top: none;
+  
     
 }
 #cell-2 {
     grid-area: cell-2;
     width: 5vw;
     height: 5vh;
-    border: 1px solid black;    
+    border: 1px solid black;
+    border-top: none;
+    border-right: none;
+    
 }
 #cell-3 {
     grid-area: cell-3;
     border: 1px solid black;
-    
+    border-left: none;
     width: 5vw;
     height: 5vh;
 }
@@ -74,24 +82,30 @@
 #cell-5 {
     grid-area: cell-5;
     border: 1px solid black;
+    border-right: none;
     width: 5vw;
     height: 5vh;
 }
 #cell-6 {
     grid-area: cell-6;
     border: 1px solid black;
+    border-left: none;
+    border-bottom:none;
     width: 5vw;
     height: 5vh;
 }
 #cell-7 {
     grid-area: cell-7;
     border: 1px solid black;
+    border-bottom: none;
     width: 5vw;
     height: 5vh;
 }
 #cell-8 {
     grid-area: cell-8;
     border: 1px solid black;
+    border-bottom: none;
+    border-right: none;
     width: 5vw;
     height: 5vh;
 }

@@ -1,4 +1,4 @@
-let board = document.getElementsByClassName("board");
+let grid = document.getElementsByClassName("grid");
 let rowOne = document.getElementById("row-1");
 let rowTwo = document.getElementById("row-2");
 let rowThree = document.getElementById("row-3");
@@ -13,12 +13,18 @@ let cellSeven = document.getElementById("cell-7");
 let cellEight = document.getElementById("cell-8");
 let start = document.getElementById("start");
 let statusText = document.getElementById("status-text");
-let allCells = document.getElementsByClassName("cell");
+let cells = document.querySelectorAll(".cell");
 
 //----need to develop a function for changing players-----
 let currentPlayer = "X";
 
-board = ["", "", "", "", "", "", "", "", ""]
+start.addEventListener("click", (evt) => {
+  start.disabled = true;
+  cells.textContent = "";
+  statusText.textContent = "Player X's Move";
+});
+
+let board = ["", "", "", "", "", "", "", "", ""];
 
 let winCombo = [
   [0, 1, 2],
@@ -32,61 +38,86 @@ let winCombo = [
 ];
 
 function winCheck() {
-  for (let i = 0; i <= 7; i++){
-      let winner = winCombo[i]
-      let winOne = board[winner[0]]
-      let winTwo = board[winner[1]]
-      let winThree = board[winner[2]]
-      if(winOne === '' || winTwo === '' || winThree === '') {
-          continue;
-      }
-//------because current player alternates after each turn if it is X's turn and win condition has been met O is the winner-------
-      if (winOne === winTwo && winTwo === winThree && currentPlayer === "X"){
+  for (let i = 0; i <= 7; i++) {
+    let winner = winCombo[i];
+    let winOne = board[winner[0]];
+    let winTwo = board[winner[1]];
+    let winThree = board[winner[2]];
+    if (winOne === "" || winTwo === "" || winThree === "") {
+      continue;
+    }
+    //------because current player alternates after each turn if it is X's turn and win condition has been met O is the winner-------
+    if (winOne === winTwo && winTwo === winThree && currentPlayer === "X") {
       statusText.textContent = "Player O wins!";
-      setTimeout(() => {
-        document.location = "/";
-      }, 3000);
+      start.disabled = false;
+      document.querySelectorAll(".cell").forEach((cell) => {
+        console.log(cell.id)
+        console.log(winner)
+        if (winner.includes(parseInt(cell.id.split("-")[1]))) {
+          cell.style.textDecoration = "line-through"
+          console.log("blah")
+        }
+        // cell.value.includes(winOne).style.textDecoration = "line-through"
+        console.log(cell)
+      })
+      
+      console.log(winOne)
+      console.log(winTwo)
+      console.log(winThree)
+      
+      // winTwo.style.textDecoraction = "line-through"
+      // winThree.style.textDecoraction = "line-through"
+      // setTimeout(() => {
+      // document.location = "/";
+      //  }, 3000);
+    } else if (
+      winOne === winTwo &&
+      winTwo === winThree &&
+      currentPlayer === "O"
+    ) {
+      statusText.textContent = "Player X wins!";
+      start.disabled = false;
+      
+      
+      // setTimeout(() => {
+      //   document.location = "/";
+      // }, 3000);
+    } else if (
+      !board.includes("") &&
+      winOne !== winTwo &&
+      winTwo !== winThree
+    ) {
+      statusText.textContent = "Draw!";
     }
-
-     else if (winOne === winTwo && winTwo === winThree && currentPlayer === "O"){
-      statusText.textContent = "Player X wins!"
-      setTimeout(() => {
-        document.location = "/";
-      }, 3000);
-    }
-
   }
-
 }
 
-start.addEventListener("click", (evt) => {
-  start.disabled = true;
-  statusText.textContent = "Player X's Move";
-});
 //----Used true and false values to trigger the players to change, no function needed
+
 document.querySelectorAll(".cell").forEach((cell) => {
   cell.addEventListener("click", (evt) => {
-    if (cell.textContent === "O" || cell.textContent === "X") {
-      statusText.textContent = "Please select an empty cell.";
-    } 
-     else if (currentPlayer === "X") {
-      board[cell.textContent] = currentPlayer;
-      cell.textContent = "X";
-      currentPlayer = "O";
-      statusText.textContent = "Player O's Move";
-      console.log(board);
-    } else {
-      board[cell.textContent] = currentPlayer;
-      cell.textContent = "O";
-      currentPlayer = "X";
-      statusText.textContent = "Player X's Move";
-      console.log(board);
+    if (start.disabled === true) {
+      if (cell.textContent === "O" || cell.textContent === "X") {
+        statusText.textContent = "Please select an empty cell.";
+      } else if (currentPlayer === "X") {
+        board[cell.textContent] = currentPlayer;
+        cell.textContent = "X";
+        currentPlayer = "O";
+        statusText.textContent = "Player O's Move";
+        console.log(board);
+      } else {
+        board[cell.textContent] = currentPlayer;
+        cell.textContent = "O";
+        currentPlayer = "X";
+        statusText.textContent = "Player X's Move";
+        console.log(board);
+      }
+      winCheck();
     }
-    winCheck();
-    
   });
 });
 
+// make a lineThroughFunction 
 
 //build player array on each turn
 //if player record includes winning combination game status equals player wins
