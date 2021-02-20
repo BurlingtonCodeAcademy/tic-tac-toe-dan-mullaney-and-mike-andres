@@ -28,17 +28,25 @@
       <div id="cell-8" class="cell" cell="8">8</div>
     </div>
   </div>
-  <div>
-    <form id="player-form">
-     <!--- <label>Player One Name:<input </label> -->
-    </form>
-  </div>
-
   
+
+  <div>
+    <h5>Time Elapsed : 0 Seconds</h5>
+  </div>
 
   <div class="status">
     <h5 id="status-text">Press Start Game To Begin.</h5>
     <button id="start" type="button" >Start Game</button>
+  </div>
+  <div>
+    <form id="player-form">
+     <div id=player-one-wrap>
+      <label>X's: <input id="player-one" type="text" placeholder="name"/></label> 
+    </div>
+    <div id="player-two-wrap">
+     <label>O's: <input id="player-two" type="text" placeholder="name"/></label> 
+    </div>
+     <button type="submit" id="submit">Submit</button>
   </div>
   <script src="main.js"></script>
 </body>

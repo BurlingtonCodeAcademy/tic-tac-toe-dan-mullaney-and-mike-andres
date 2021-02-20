@@ -14,14 +14,31 @@ let cellEight = document.getElementById("cell-8");
 let start = document.getElementById("start");
 let statusText = document.getElementById("status-text");
 let cells = document.querySelectorAll(".cell");
+let playerNameInput = document.getElementById("player-form");
 
-//----need to develop a function for changing players-----
+//----need to develop a function for changing players-----//
+let playerOne = "";
+let playerTwo = "";
+
+playerNameInput.addEventListener("submit", (evt) => {
+  evt.preventDefault();
+  playerOne = document.getElementById("player-one");
+  playerTwo = document.getElementById("player-two");
+  placeholder.value = placeholder.defaultValue
+ 
+});
+
 let currentPlayer = "X";
 
 start.addEventListener("click", (evt) => {
   start.disabled = true;
   cells.textContent = "";
-  statusText.textContent = "Player X's Move";
+  if (playerOne.value !== undefined) {
+  statusText.textContent = `${playerOne.value}'s Move`;
+  }
+  else {
+    `Player X's Move`
+  }
 });
 
 let board = ["", "", "", "", "", "", "", "", ""];
@@ -48,23 +65,20 @@ function winCheck() {
     }
     //------because current player alternates after each turn if it is X's turn and win condition has been met O is the winner-------
     if (winOne === winTwo && winTwo === winThree && currentPlayer === "X") {
-      statusText.textContent = "Player O wins!";
-      start.disabled = false;
       document.querySelectorAll(".cell").forEach((cell) => {
-        console.log(cell.id)
-        console.log(winner)
         if (winner.includes(parseInt(cell.id.split("-")[1]))) {
-          cell.style.textDecoration = "line-through"
-          console.log("blah")
+          cell.style.textDecoration = "line-through";
         }
         // cell.value.includes(winOne).style.textDecoration = "line-through"
-        console.log(cell)
-      })
-      
-      console.log(winOne)
-      console.log(winTwo)
-      console.log(winThree)
-      
+      });
+      if (playerOne.value !== undefined) {
+        statusText.textContent = `${playerTwo.value} wins!`;
+        start.disabled = false;
+      } else {
+        statusText.textContent = "Player O wins!";
+        start.disabled = false;
+      }
+
       // winTwo.style.textDecoraction = "line-through"
       // winThree.style.textDecoraction = "line-through"
       // setTimeout(() => {
@@ -75,10 +89,19 @@ function winCheck() {
       winTwo === winThree &&
       currentPlayer === "O"
     ) {
-      statusText.textContent = "Player X wins!";
-      start.disabled = false;
-      
-      
+      document.querySelectorAll(".cell").forEach((cell) => {
+        if (winner.includes(parseInt(cell.id.split("-")[1]))) {
+          cell.style.textDecoration = "line-through";
+        }
+      });
+      if (playerOne.value !== undefined) {
+        statusText.textContent = `Player ${playerOne.value} wins!`;
+        start.disabled = false;
+      } else {
+        statusText.textContent = `Player X wins!`;
+        start.disabled = false;
+      }
+
       // setTimeout(() => {
       //   document.location = "/";
       // }, 3000);
@@ -103,21 +126,28 @@ document.querySelectorAll(".cell").forEach((cell) => {
         board[cell.textContent] = currentPlayer;
         cell.textContent = "X";
         currentPlayer = "O";
+        if (playerTwo.value !== undefined){
+          statusText.textContent = `${playerTwo.value}'s Move`
+        } else {
         statusText.textContent = "Player O's Move";
-        console.log(board);
+        }
       } else {
         board[cell.textContent] = currentPlayer;
         cell.textContent = "O";
         currentPlayer = "X";
-        statusText.textContent = "Player X's Move";
-        console.log(board);
+        if (playerOne.value !== undefined) {
+        statusText.textContent = `${playerOne.value}'s Move`;
+        }
+        else {
+          statusText.textContent = "Player X's Move"
+        }
       }
       winCheck();
     }
   });
 });
 
-// make a lineThroughFunction 
+// make a lineThroughFunction
 
 //build player array on each turn
 //if player record includes winning combination game status equals player wins

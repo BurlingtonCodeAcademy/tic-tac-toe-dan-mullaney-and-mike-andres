@@ -109,3 +109,24 @@
     width: 5vw;
     height: 5vh;
 }
+
+#player-form{
+    padding-top: 25px;
+    padding-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+#player-one-wrap{
+    padding-bottom: 10px;
+}
+
+#player-two-wrap{
+    padding-bottom: 10px;
+}
+
+#submit{
+    width:4vw;
+    height: 3vh;
+
+}
