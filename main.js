@@ -15,17 +15,53 @@ let start = document.getElementById("start");
 let statusText = document.getElementById("status-text");
 let cells = document.querySelectorAll(".cell");
 let playerNameInput = document.getElementById("player-form");
+let clock = document.getElementById("clock");
+let computer = document.getElementById("computer");
 
 //----need to develop a function for changing players-----//
 let playerOne = "";
 let playerTwo = "";
 
+submit.disabled = true;
+
+function randomNum() {
+  let randInt = Math.floor(Math.random() * 9);
+
+  return randInt;
+}
+
+function cpuMove() {
+  let cellArray = Array.from(document.querySelectorAll(".cell"));
+  let compGuess = parseInt(randomNum());
+  // while (currentPlayer !== "X") {
+  if (cellArray[compGuess].textContent !== "X" && cellArray[compGuess].textContent !== "O") {
+    cellArray[compGuess].textContent = "O";}
+    else if (cellArray[compGuess].textContent === "X" && cellArray[compGuess].textContent === "O"){
+      compGuess = parseInt(randomNum())
+      cellArray[compGuess].textContent = "O";
+    }
+  }
+//  }
+let count = 0;
+
+function timer() {
+  count++;
+  clock.textContent = `Time Elapsed: ${count} seconds`;
+}
+
+let startCount = (evt) => {
+  newCount = setInterval(timer, 1000);
+};
+
 playerNameInput.addEventListener("submit", (evt) => {
   evt.preventDefault();
   playerOne = document.getElementById("player-one");
   playerTwo = document.getElementById("player-two");
-  placeholder.value = placeholder.defaultValue
- 
+  if (playerOne.value !== undefined) {
+    statusText.textContent = `${playerOne.value}'s Move`;
+  } else {
+    statusText.textContent = `Player X's Move`;
+  }
 });
 
 let currentPlayer = "X";
@@ -78,6 +114,7 @@ function winCheck() {
         statusText.textContent = "Player O wins!";
         start.disabled = false;
       }
+      clearInterval(newCount);
 
       // winTwo.style.textDecoraction = "line-through"
       // winThree.style.textDecoraction = "line-through"
@@ -101,49 +138,86 @@ function winCheck() {
         statusText.textContent = `Player X wins!`;
         start.disabled = false;
       }
+      clearInterval(newCount);
 
       // setTimeout(() => {
       //   document.location = "/";
       // }, 3000);
     } else if (
-      !board.includes("") &&
-      winOne !== winTwo &&
-      winTwo !== winThree
+      (!board.includes("") && winOne === "") ||
+      winTwo === "" ||
+      winThree === ""
     ) {
       statusText.textContent = "Draw!";
+      clearInterval(newCount);
     }
   }
 }
 
-//----Used true and false values to trigger the players to change, no function needed
 
-document.querySelectorAll(".cell").forEach((cell) => {
-  cell.addEventListener("click", (evt) => {
-    if (start.disabled === true) {
-      if (cell.textContent === "O" || cell.textContent === "X") {
-        statusText.textContent = "Please select an empty cell.";
-      } else if (currentPlayer === "X") {
-        board[cell.textContent] = currentPlayer;
-        cell.textContent = "X";
-        currentPlayer = "O";
-        if (playerTwo.value !== undefined){
-          statusText.textContent = `${playerTwo.value}'s Move`
+//Player VS Player Game
+//---Moved start button eventListener and put the player vs player game inside it, going to change start button id to player vs player
+start.addEventListener("click", (evt) => {
+  startCount();
+  start.disabled = true;
+  computer.disabled = true;
+  submit.disabled = false;
+
+  statusText.textContent = "Enter Player Names";
+  //----Used true and false values to trigger the players to change, no function needed, later changed values to X and O because they were put inside the board for win function
+  document.querySelectorAll(".cell").forEach((cell) => {
+    cell.addEventListener("click", (evt) => {
+      if (start.disabled === true) {
+        if (cell.textContent === "O" || cell.textContent === "X") {
+          statusText.textContent = "Please select an empty cell.";
+        } else if (currentPlayer === "X") {
+          board[cell.textContent] = currentPlayer;
+          cell.textContent = "X";
+          currentPlayer = "O";
+          if (playerTwo.value !== undefined) {
+            statusText.textContent = `${playerTwo.value}'s Move`;
+          } else {
+            statusText.textContent = "Player O's Move";
+          }
         } else {
-        statusText.textContent = "Player O's Move";
+          board[cell.textContent] = currentPlayer;
+          cell.textContent = "O";
+          currentPlayer = "X";
+          if (playerOne.value !== undefined) {
+            statusText.textContent = `${playerOne.value}'s Move`;
+          } else {
+            statusText.textContent = "Player X's Move";
+          }
         }
-      } else {
-        board[cell.textContent] = currentPlayer;
-        cell.textContent = "O";
-        currentPlayer = "X";
-        if (playerOne.value !== undefined) {
-        statusText.textContent = `${playerOne.value}'s Move`;
-        }
-        else {
-          statusText.textContent = "Player X's Move"
-        }
+        winCheck();
       }
-      winCheck();
-    }
+    });
+  });
+});
+
+//Computer VS Player Game
+
+computer.addEventListener("click", (evt) => {
+  startCount();
+  computer.disabled = true;
+  start.disabled = true;
+
+  document.querySelectorAll(".cell").forEach((cell) => {
+    cell.addEventListener("click", (evt) => {
+      if (computer.disabled === true) {
+        if (cell.textContent === "O" || cell.textContent === "X") {
+          statusText.textContent = "Please select an empty cell.";
+        } else if (currentPlayer === "X") {
+          board[cell.textContent] = currentPlayer;
+          cell.textContent = "X";
+          currentPlayer = "O";
+          cpuMove();
+          currentPlayer = "X"
+          console.log(board);
+        }
+        winCheck();
+      }
+    });
   });
 });
 
