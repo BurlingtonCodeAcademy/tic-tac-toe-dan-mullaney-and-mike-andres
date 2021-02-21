@@ -1,21 +1,22 @@
 /* Centering */
-html, body {
-    height:100%
+html,
+body {
+  height: 100%;
 }
 html {
-    display:table;
-    margin:auto;
+  display: table;
+  margin: auto;
 }
 .centerItem {
-    text-align: center;
+  text-align: center;
 }
 #status-text {
-    margin-left:auto;
-    margin-right:auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 body {
-    display: table-cell;
-    vertical-align: auto;
+  display: table-cell;
+  vertical-align: auto;
 }
 
 /* Cell Organization */
@@ -150,6 +151,6 @@ body {
 #submit {
   width: 65px;
   height: 25px;
-  margin-left:auto;
-  margin-right:auto;
+  margin-left: auto;
+  margin-right: auto;
 }

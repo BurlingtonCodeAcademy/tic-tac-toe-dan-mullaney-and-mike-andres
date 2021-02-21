@@ -66,8 +66,8 @@ function winCheck() {
       document.querySelectorAll(".cell").forEach((cell) => {
         if (winner.includes(parseInt(cell.id.split("-")[1]))) {
           cell.style.textDecoration = "line-through";
-          cell.style.backgroundColor = "red"
-          cell.style.color = "black"
+          cell.style.backgroundColor = "red";
+          cell.style.color = "black";
         }
       });
 
@@ -154,7 +154,6 @@ start.addEventListener("click", (evt) => {
   //User Input Cell Click Event Chain Reaction
   document.querySelectorAll(".cell").forEach((cell) => {
     cell.addEventListener("click", (evt) => {
-      
       //Checks if Start Button was Pressed and If the Cell is Occupied
       if (start.disabled === true) {
         if (cell.textContent === "O" || cell.textContent === "X") {
@@ -162,7 +161,7 @@ start.addEventListener("click", (evt) => {
 
           //Player X Input Translation
         } else if (currentPlayer === "X") {
-          cell.style.color = "red"
+          cell.style.color = "red";
           board[cell.textContent] = currentPlayer;
           cell.textContent = "X";
           currentPlayer = "O";
@@ -174,7 +173,7 @@ start.addEventListener("click", (evt) => {
 
           //Checks for Player O Turn and Input Translation
         } else {
-          cell.style.color = "red"
+          cell.style.color = "red";
           board[cell.textContent] = currentPlayer;
           cell.textContent = "O";
           currentPlayer = "X";
@@ -184,7 +183,7 @@ start.addEventListener("click", (evt) => {
             statusText.textContent = "Player X's Move";
           }
         }
-        
+
         //Checks if Game Over
         winCheck();
       }
@@ -203,7 +202,6 @@ computer.addEventListener("click", (evt) => {
   //User Input Cell Click Event Chain Reaction
   document.querySelectorAll(".cell").forEach((cell) => {
     cell.addEventListener("click", (evt) => {
-      
       //Checks if Start Button was Pressed and If the Cell is Occupied
       if (computer.disabled === true) {
         if (cell.textContent === "O" || cell.textContent === "X") {
@@ -212,7 +210,7 @@ computer.addEventListener("click", (evt) => {
           //Updates to Generic Status and Translates User Click Input
         } else {
           statusText.textContent = "Human : X and Computer : O";
-          cell.style.color = "red"
+          cell.style.color = "red";
           board[cell.textContent] = currentPlayer;
           cell.textContent = "X";
 
@@ -234,7 +232,7 @@ computer.addEventListener("click", (evt) => {
               //Random Cell is Set to O and a Victory Check Occurs
               document.querySelectorAll(".cell").forEach((newCell) => {
                 if (parseInt(newCell.textContent) === randomMove) {
-                  newCell.style.color = "red"
+                  newCell.style.color = "red";
                   newCell.textContent = "O";
 
                   //Checks if Game is Over
@@ -249,7 +247,7 @@ computer.addEventListener("click", (evt) => {
                   newerCell.textContent !== "X" &&
                   newerCell.textContent !== "O"
                 ) {
-                  newerCell.style.color = "red"
+                  newerCell.style.color = "red";
                   board[newerCell.textContent] = "O";
                   newerCell.textContent = "O";
 
@@ -269,57 +267,56 @@ computer.addEventListener("click", (evt) => {
 });
 
 //Time Keepers
-let hour = 0
-let minute = 0
-let seconds =  0 
+let hour = 0;
+let minute = 0;
+let seconds = 0;
 
 //Formatting Placeholders for Single Digits
-placeHolderS = 0
-placeHolderM = 0
-placeHolderH = 0
+placeHolderS = 0;
+placeHolderM = 0;
+placeHolderH = 0;
 
 //Timer Incrementing and Display Management
-function timer () {
-  seconds += 1
- 
+function timer() {
+  seconds += 1;
+
   //Seconds Management
   if (seconds > 59) {
-    minute += 1
-    seconds = 0
+    minute += 1;
+    seconds = 0;
   }
-  if (seconds > 9){
-    placeHolderS = ""
+  if (seconds > 9) {
+    placeHolderS = "";
   }
-  if (seconds < 10){
-    placeHolderS = 0
+  if (seconds < 10) {
+    placeHolderS = 0;
   }
 
   //Minute Management
   if (minute > 59) {
-    hour += 1
-    minute = 0
+    hour += 1;
+    minute = 0;
   }
-  if (minute > 9){
-    placeHolderM = ""
+  if (minute > 9) {
+    placeHolderM = "";
   }
-  if (minute < 10){
-    placeHolderM = 0
+  if (minute < 10) {
+    placeHolderM = 0;
   }
 
   //Hour Management
   if (hour > 99) {
-    hour = 0
+    hour = 0;
   }
-  if (hour > 9){
-    placeHolderH = ""
+  if (hour > 9) {
+    placeHolderH = "";
   }
-  if (hour < 10){
-    placeHolderH = 0
+  if (hour < 10) {
+    placeHolderH = 0;
   }
 
   //Element Display Management
   clock.textContent = ` Time Elapsed : ${placeHolderH}${hour}:${placeHolderM}${minute}:${placeHolderS}${seconds} `;
-
 }
 
 //Complete Timer Event
