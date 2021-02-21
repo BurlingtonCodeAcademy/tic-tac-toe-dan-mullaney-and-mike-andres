@@ -15,31 +15,39 @@ let start = document.getElementById("start");
 let statusText = document.getElementById("status-text");
 let cells = document.querySelectorAll(".cell");
 let playerNameInput = document.getElementById("player-form");
+let clock = document.getElementById("clock");
+let computer = document.getElementById('computer')
 
 //----need to develop a function for changing players-----//
 let playerOne = "";
 let playerTwo = "";
 
+submit.disabled = true;
+
+let count = 0;
+
+function timer() {
+  count++;
+  clock.textContent = `Time Elapsed: ${count} seconds`;
+}
+
+let startCount = (evt) => {
+  newCount = setInterval(timer, 1000);
+};
+
 playerNameInput.addEventListener("submit", (evt) => {
   evt.preventDefault();
   playerOne = document.getElementById("player-one");
   playerTwo = document.getElementById("player-two");
-  placeholder.value = placeholder.defaultValue
- 
+  if (playerOne.value !== undefined) {
+    statusText.textContent = `${playerOne.value}'s Move`;
+    }
+    else {
+      statusText.textContent = `Player X's Move`
+    }
 });
 
 let currentPlayer = "X";
-
-start.addEventListener("click", (evt) => {
-  start.disabled = true;
-  cells.textContent = "";
-  if (playerOne.value !== undefined) {
-  statusText.textContent = `${playerOne.value}'s Move`;
-  }
-  else {
-    `Player X's Move`
-  }
-});
 
 let board = ["", "", "", "", "", "", "", "", ""];
 
@@ -78,6 +86,7 @@ function winCheck() {
         statusText.textContent = "Player O wins!";
         start.disabled = false;
       }
+      clearInterval(newCount);
 
       // winTwo.style.textDecoraction = "line-through"
       // winThree.style.textDecoraction = "line-through"
@@ -101,22 +110,30 @@ function winCheck() {
         statusText.textContent = `Player X wins!`;
         start.disabled = false;
       }
+      clearInterval(newCount);
 
       // setTimeout(() => {
       //   document.location = "/";
       // }, 3000);
     } else if (
       !board.includes("") &&
-      winOne !== winTwo &&
-      winTwo !== winThree
-    ) {
+      winOne === "" || winTwo === "" || winThree === "") {
       statusText.textContent = "Draw!";
+      clearInterval(newCount);
     }
   }
 }
 
-//----Used true and false values to trigger the players to change, no function needed
+//Player VS Player Game
+//---Moved start button eventListener and put the player vs player game inside it, going to change start button id to player vs player
+start.addEventListener("click", (evt) => {
+  startCount();
+  start.disabled = true;
+  computer.disabled = true;
+  submit.disabled = false;
 
+  statusText.textContent = "Enter Player Names"
+//----Used true and false values to trigger the players to change, no function needed, later changed values to X and O because they were put inside the board for win function
 document.querySelectorAll(".cell").forEach((cell) => {
   cell.addEventListener("click", (evt) => {
     if (start.disabled === true) {
@@ -146,6 +163,68 @@ document.querySelectorAll(".cell").forEach((cell) => {
     }
   });
 });
+});
+//Computer VS Player Game
+
+computer.addEventListener('click', (evt) => {
+  startCount();
+  computer.disabled = true;
+  start.disabled = true;
+  statusText.textContent = "You are player X, good luck!"
+
+document.querySelectorAll(".cell").forEach((cell) => {
+  cell.addEventListener("click", (evt) => {
+    if (computer.disabled === true) {
+      if (cell.textContent === "O" || cell.textContent === "X") {
+        statusText.textContent = "Please select an empty cell.";
+      } else if (currentPlayer === "X") {
+        board[cell.textContent] = currentPlayer;
+        cell.textContent = "X";
+        currentPlayer = "O";
+        
+
+
+
+      } else {
+        
+        
+        board[cell.textContent] = currentPlayer;
+        cell.textContent = "O";
+        currentPlayer = "X";
+        
+      }
+      winCheck();
+    }
+  });
+});
+})
+
+/*
+ 
+randomInteger = (min, max) => {
+  let range = max - min + 1;
+  let randInt = Math.round(Math.random() * range);
+
+  return randInt;
+}
+
+while (cell.textContent)
+
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // make a lineThroughFunction
 
