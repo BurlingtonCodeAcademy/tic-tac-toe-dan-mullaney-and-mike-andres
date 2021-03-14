@@ -52,8 +52,8 @@ let winCombo = [
 
 //Checks Winning Combinations Against Player Cells
 function winCheck() {
-  for (let i = 0; i <= 7; i++) {
-    let winner = winCombo[i];
+  for (let winComboItem of winCombo) {
+    let winner = winComboItem;
     let winOne = board[winner[0]];
     let winTwo = board[winner[1]];
     let winThree = board[winner[2]];
